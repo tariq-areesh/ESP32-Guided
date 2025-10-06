@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- // ESP32 Guide | // Your ID | // Your Section | Oct 06, 2025 -->
+  <meta charset="utf-8">
+  <title>ESP32 Guide – Projects</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header id="site-header">
+    <div class="container clearfix">
+      <a href="index.html" class="logo-link"><img src="../images/esp32.webp" alt="ESP32 logo" width="40" class="float-left" style="margin-top:4px;border-radius:6px"></a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="why-esp32.html">Why ESP32</a>
+        <a href="getting-started.html">Getting Started</a>
+        <a href="pinout-reference.html">Pinout</a>
+        <a href="troubleshooting.html">Troubleshooting</a>
+        <a href="projects.html">Projects</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container">
+
+  <div class="surface">
+    <h1>ESP32 Projects</h1>
+    <p>Three beginner friendly projects to practice analog input, I2S audio, and Wi‑Fi.</p>
+
+    <section class="project-card clearfix">
+      <h2>1) Potentiometer Read <span class="badge">Beginner</span></h2>
+      <img src="../images/project1-pot.jpg" alt="ESP32 with potentiometer wiring" class="float-right img-frame" width="260">
+      <p><strong>Goal:</strong> Read an analog potentiometer on <code>GPIO34</code> and print a scaled value to the Serial Monitor.</p>
+      <h3>Parts</h3>
+      <ul>
+        <li>ESP32 board</li>
+        <li>10k&Omega; potentiometer</li>
+        <li>Breadboard + jumper wires</li>
+      </ul>
+      <h3>Steps</h3>
+      <ol>
+        <li>Wire: one outer leg to <code>3V3</code>, the other to <code>GND</code>, center wiper to <code>GPIO34</code> (input‑only).</li>
+        <li>In Arduino IDE, open a new sketch and in <code>setup()</code> start <code>Serial.begin(115200)</code>.</li>
+        <li>In <code>loop()</code>, read <code>analogRead(34)</code> and map to 0–100 using <code>map()</code>. <em>Tip:</em> ADC2 channels are unstable with Wi‑Fi; use ADC1 pins like 32–39.</li>
+        <li>Upload and rotate the knob  watch values in Serial Monitor.</li>
+      </ol>
+    </section>
+
+    <section class="project-card clearfix">
+      <h2>2) INMP441 Microphone Level <span class="badge">Intermediate</span></h2>
+      <img src="../images/project2-inmp441.png" alt="INMP441 microphone pinout" class="float-right img-frame" width="200">
+      <p><strong>Goal:</strong> Read audio samples from an INMP441 I2S microphone and print a simple amplitude level.</p>
+      <h3>Parts</h3>
+      <ul>
+        <li>ESP32 board</li>
+        <li>INMP441 I2S microphone module</li>
+        <li>Wires</li>
+      </ul>
+      <h3>Wiring</h3>
+      <ul>
+        <li><code>VDD → 3V3</code>, <code>GND → GND</code></li>
+        <li><code>SCK → GPIO14</code> (I2S SCK), <code>WS → GPIO15</code> (LRCLK), <code>SD → GPIO32</code> (I2S data‑in)</li>
+        <li><code>L/R</code> select: connect to <code>GND</code> for left, <code>3V3</code> for right channel</li>
+      </ul>
+      <h3>Steps</h3>
+      <ol>
+        <li>Install the <em>ESP32 I2S</em> examples (built‑in in Arduino core).</li>
+        <li>Use an <code>I2S_MODE_MASTER | I2S_MODE_RX</code> config, 16‑bit samples, 16 kHz.</li>
+        <li>Read a small buffer, compute absolute average, and print a bar like <code>#####</code> proportional to level.</li>
+      </ol>
+    </section>
+
+    <section class="project-card clearfix">
+      <h2>3) Wi‑Fi Web Server <span class="badge">Intermediate</span></h2>
+      <img src="../images/project3-wifi.png" alt="ESP32 Wi‑Fi server diagram" class="float-right img-frame" width="260">
+      <p><strong>Goal:</strong> Host a tiny webpage that toggles the onboard LED and shows device info.</p>
+      <h3>Parts</h3>
+      <ul><li>ESP32 board</li><li>2.4 GHz Wi‑Fi network</li></ul>
+      <h3>Steps</h3>
+      <ol>
+        <li>Open an <code>ESP32 → WebServer</code> example.</li>
+        <li>Add SSID and password, adjust the LED pin to <code>2</code> if needed.</li>
+        <li>Upload, get the printed IP from Serial Monitor, and browse to it.</li>
+      </ol>
+    </section>
+  </div>
+
+</main>
+  <footer class="container">
+    &copy; 2025 ESP32 Guide | <a href="services.html">Services</a> | <a href="contact.html">Contact</a>
+  </footer>
+</body>
+</html>
